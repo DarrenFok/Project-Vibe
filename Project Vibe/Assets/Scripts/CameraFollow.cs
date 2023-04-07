@@ -9,8 +9,8 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour
 {
     public float FollowSpeed = 2f;
-    public float yOffset =1f;
-    public Transform target;
+    public float yOffset =1f; //offset of camera on y axis (moves the camera a fixed amount up or down)
+    public Transform target; //choose which object to follow, in this case our player
 
 
 
