@@ -14,8 +14,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck; //checks if player is on the ground for jumping purposes
     [SerializeField] private LayerMask groundLayer; //groundLayer denotes which surfaces are walkable or not
-    [SerializeField] private float acceleration = 3f;
-    [SerializeField] private float maxSpeed = 12f;
+    //[SerializeField] private float acceleration = 3f;
+    //[SerializeField] private float maxSpeed = 12f;
     
 
     // Start is called before the first frame update
