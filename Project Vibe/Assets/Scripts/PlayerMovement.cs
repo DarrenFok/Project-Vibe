@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
-        Debug.Log(rb.velocity.x);
+        //Debug.Log(rb.velocity.x);
     }
 
     void Flip()

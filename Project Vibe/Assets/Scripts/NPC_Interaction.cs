@@ -7,6 +7,7 @@ public class NPC_Interaction : MonoBehaviour
     public Transform Player;
     public Transform NPC;
     public float InteractionDistance = 5;
+    //public InputAction interactionControls;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,16 @@ public class NPC_Interaction : MonoBehaviour
     {
         if(Vector2.Distance(Player.position, NPC.position) < InteractionDistance)
         {
-            
+            if(Input.GetButtonDown("Interact"))
+            {
+                Debug.Log("test");
+            }
         }
         else
         {
         }
 
     }
+
+
 }
