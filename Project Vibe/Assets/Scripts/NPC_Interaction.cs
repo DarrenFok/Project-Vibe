@@ -7,6 +7,7 @@ public class NPC_Interaction : MonoBehaviour
     public Transform Player;
     public Transform NPC;
     public float InteractionDistance = 5;
+    public UI DialogueUI;
     //public InputAction interactionControls;
 
     // Start is called before the first frame update

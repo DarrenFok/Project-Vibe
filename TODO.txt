@@ -1,0 +1,3 @@
+- Fix mid air movement
+- Prototype NPC Dialogue
+- Integrate prototype animation
