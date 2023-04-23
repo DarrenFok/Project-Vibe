@@ -10,6 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public float deacceleration = 5;
     public InputAction playerControls;
 
+    //Ground collider stuff 
+    public Transform groundCheckCollider;
+    const float groundCheckRadius = 0.5f;
+    public LayerMask groundLayer;
+    public bool isGrounded = false; //checks to see if player is grounded
+
     private float moveInput;
     private bool isFacingRight = true;
     private float acceleration = 3f;
@@ -24,7 +30,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveInput = playerControls.ReadValue<Vector2>().x; //basically the direction that the player is moving 
+        moveInput = playerControls.ReadValue<Vector2>().x; //basically the direction that the player is moving
+        GroundCheck();
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
@@ -38,6 +45,18 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls.Disable();
         
+    }
+
+    void GroundCheck()
+    {
+        //check if groundCheck object is colliding with "Walkable"; if yes then true, if no then false
+        isGrounded = false;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);
+        if(colliders.Length > 0)
+        {
+            isGrounded = true;
+        }
     }
 
     void FixedUpdate()
