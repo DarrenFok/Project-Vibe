@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public bool isGrounded = false; //checks to see if player is grounded
 
+    //jump
+    private float jumpPower = 13f;
+
     private float moveInput;
     private bool isFacingRight = true;
     private float acceleration = 3f;
@@ -56,6 +59,18 @@ public class PlayerMovement : MonoBehaviour
         if(colliders.Length > 0)
         {
             isGrounded = true;
+        }
+    }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if(context.performed && isGrounded == true)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+        }
+        if(context.canceled && rb.velocity.y > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
 
