@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded = false; //checks to see if player is grounded
 
     //jump
-    private float jumpPower = 13f;
+    private float jumpPower = 10f;
 
     private float moveInput;
     private bool isFacingRight = true;
@@ -55,20 +55,20 @@ public class PlayerMovement : MonoBehaviour
         //check if groundCheck object is colliding with "Walkable"; if yes then true, if no then false
         isGrounded = false;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer); //add whatever is contacted to array
         if(colliders.Length > 0)
         {
             isGrounded = true;
         }
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void Jump(InputAction.CallbackContext context) //context is command "space"
     {
         if(context.performed && isGrounded == true)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            rb.velocity = new Vector2(rb.velocity.x, jumpPower); //jump
         }
-        if(context.canceled && rb.velocity.y > 0f)
+        if(context.canceled && rb.velocity.y > 0f) //higher jump depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
@@ -86,7 +86,15 @@ public class PlayerMovement : MonoBehaviour
 
             float movement = Mathf.Pow(Mathf.Abs(velocityDifference) * accelerationRate, velPower) * Mathf.Sign(velocityDifference);
 
-            rb.AddForce(movement * Vector2.right);
+            if(isGrounded == false) 
+            {
+                rb.AddForce(0.25f * movement * Vector2.right); //deaccelerate side to side movement when in the air
+                rb.AddForce(5f * Vector2.down); //make them fall quicker in air
+            }
+            else
+            {
+                rb.AddForce(movement * Vector2.right);
+            }
         }
         
         else //deccelerate player when not pressing keys
