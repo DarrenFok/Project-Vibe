@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(isGrounded == false) 
             {
-                rb.AddForce(0.25f * movement * Vector2.right); //deaccelerate side to side movement when in the air
+                rb.AddForce(0.1f * movement * Vector2.right); //deaccelerate side to side movement when in the air
                 rb.AddForce(5f * Vector2.down); //make them fall quicker in air
             }
             else
