@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NPC_Interaction : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class NPC_Interaction : MonoBehaviour
     public Transform NPC;
     public float InteractionDistance = 5;
     //public UI DialogueUI; was causing compilation errors
-    //public InputAction interactionControls;
+    public InputAction interactionControls;
+    public Dialogue dialogue;
+    public DialogueManager dialogueManger;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +24,12 @@ public class NPC_Interaction : MonoBehaviour
     {
         if(Vector2.Distance(Player.position, NPC.position) < InteractionDistance)
         {
-            if(Input.GetButtonDown("Interact"))
+            if (Input.GetButtonDown("Interact"))
             {
-                Debug.Log("test");
+                FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
             }
         }
-        else
-        {
-        }
+
 
     }
-
-
 }
