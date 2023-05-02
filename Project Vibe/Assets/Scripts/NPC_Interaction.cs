@@ -11,7 +11,6 @@ public class NPC_Interaction : MonoBehaviour
     //public UI DialogueUI; was causing compilation errors
     public InputAction interactionControls;
     public Dialogue dialogue;
-    public DialogueManager dialogueManger;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +25,15 @@ public class NPC_Interaction : MonoBehaviour
         {
             if (Input.GetButtonDown("Interact"))
             {
-                FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+                DialogueTrigger();
             }
         }
 
 
+    }
+
+    public void DialogueTrigger()
+    {
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
     }
 }
