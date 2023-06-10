@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = playerControls.ReadValue<Vector2>().x; //basicall
         //if(playerControls.ReadValue)
+        //if(playerControls.ReadValue)
         
     }
 
