@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //else if noGravityMode is false (gravity on), context performed, turn off gravity
-        else if (noGravityMode == false && context.performed)
+        else if (noGravityMode == false && context.performed && lowGravityMode == false && reverseGravityMode == false)
         {
             noGravityMode = true;
             Debug.Log("gravity off");
