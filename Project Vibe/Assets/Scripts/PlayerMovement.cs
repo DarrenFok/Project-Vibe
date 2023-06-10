@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
     private float acceleration = 3f;
     private float decceleration = -3f; //ignore that theres two imma fix it later
     private float velPower = 1f;
+
+    private bool lowGravityMode = false;
+    private bool noGravityMode = false;
+    private bool reverseGravityMode = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +37,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveInput = playerControls.ReadValue<Vector2>().x; //basically the direction that the player is moving
-        GroundCheck();
+        moveInput = playerControls.ReadValue<Vector2>().x; //basicall
+        //if(playerControls.ReadValue)
+        
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
