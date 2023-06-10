@@ -1,8 +1,3 @@
 - Fix mid air movement
 - Prototype NPC Dialogue
 - Integrate prototype animation
-
-gravity mechanics:
-- decrease gravity (fall slower, jump higher)
-- reverse gravity (fall upwards)
-- no gravity mode
