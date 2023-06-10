@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private float velPower = 1f;
 
     private bool lowGravityMode = false;
-    private bool noGravityMode = false;
+    public bool noGravityMode = false;
     private bool reverseGravityMode = false;
     // Start is called before the first frame update
     void Start()
@@ -76,6 +76,23 @@ public class PlayerMovement : MonoBehaviour
         if(context.canceled && rb.velocity.y > 0f) //higher jump depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+    }
+
+    public void activateNo(InputAction.CallbackContext context)
+    {
+        //if isGravity true, context performed, turn off gravity
+        if (noGravityMode == true && context.performed)
+        {
+            noGravityMode = false;
+            Debug.Log("gravity on");
+        }
+
+        //else if isGravity false, context performed, turn on gravity
+        else if (noGravityMode == false && context.performed)
+        {
+            noGravityMode = true;
+            Debug.Log("gravity off");
         }
     }
 

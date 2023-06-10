@@ -653,6 +653,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
+  isGravity: 1
 --- !u!4 &346562010
 Transform:
   m_ObjectHideFlags: 0
@@ -862,6 +863,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c87f908d-8020-4830-a9e7-d85b61c25233
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dc5ede5c-db0e-4a58-a253-9c19ceda3696
+    m_ActionName: Player/activateLow[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 346562009}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: activateNo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 314a7feb-0a15-4884-984f-2dda17f43931
+    m_ActionName: Player/activateNo[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d640def9-f95a-4474-903d-e9c40dd5bff8
+    m_ActionName: Player/activateReverse[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
