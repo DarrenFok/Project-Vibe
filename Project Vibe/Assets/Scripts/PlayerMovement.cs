@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         {
             lowGravityMode = false;
             rb.gravityScale = 1f;
-            Debug.Log("low gravity on");
+            Debug.Log("low gravity off");
         }
 
         //else if isGravity false, context performed, turn on gravity
@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         {
             lowGravityMode = true;
             rb.gravityScale = 0.5f;
-            Debug.Log("low gravity off");
+            Debug.Log("low gravity on");
         }
     }
 
