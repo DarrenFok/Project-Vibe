@@ -81,6 +81,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void activateLow(InputAction.CallbackContext context)
+    {
+        if (lowGravityMode == true && context.performed)
+        {
+            lowGravityMode = false;
+            rb.gravityScale = 1f;
+            Debug.Log("low gravity on");
+        }
+
+        //else if isGravity false, context performed, turn on gravity
+        else if (lowGravityMode == false && noGravityMode == false && reverseGravityMode == false && context.performed)
+        {
+            lowGravityMode = true;
+            rb.gravityScale = 0.5f;
+            Debug.Log("low gravity off");
+        }
+    }
+
     public void activateNo(InputAction.CallbackContext context)
     {
         //if isGravity true, context performed, turn off gravity
@@ -97,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("gravity off");
         }
     }
+
 
     void FixedUpdate()
     {
