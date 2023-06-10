@@ -101,18 +101,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void activateNo(InputAction.CallbackContext context)
     {
-        //if isGravity true, context performed, turn off gravity
+        //if noGravityMode is true (gravity off), context performed, turn on gravity
         if (noGravityMode == true && context.performed)
         {
             noGravityMode = false;
             Debug.Log("gravity on");
+
+            //float on
+            rb.gravityScale = 1;
         }
 
-        //else if isGravity false, context performed, turn on gravity
-        else if (noGravityMode == false && context.performed)
+        //else if noGravityMode is false (gravity on), context performed, turn off gravity
+        else if (noGravityMode == false && context.performed && lowGravityMode == false && reverseGravityMode == false)
         {
             noGravityMode = true;
             Debug.Log("gravity off");
+
+            //float off
+            rb.gravityScale = 0;
         }
     }
 
