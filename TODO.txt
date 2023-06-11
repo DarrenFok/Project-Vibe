@@ -4,5 +4,5 @@
 
 gravity mechanics:
 - decrease gravity (fall slower, jump higher)
-- reverse gravity (fall upwards)
-- no gravity mode
+- reverse gravity (fall upwards) - working fine now (darren)
+- no gravity mode - if head hits platform with no gravity, then y is frozen, wont move up if go past ceiling
