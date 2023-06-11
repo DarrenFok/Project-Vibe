@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 12f;
     public float deacceleration = 5;
     public InputAction playerControls;
+    public LayerMask dynamicEnvironment;
 
     //Ground collider stuff 
     public Transform groundCheckCollider;
@@ -106,7 +107,13 @@ public class PlayerMovement : MonoBehaviour
         {
             noGravityMode = false;
             Debug.Log("gravity on");
-
+            //var allArray = FindObjectsOfType(gameObject);
+            //GameObject[] objects = ; 
+            //FindObjectsOfType(GameObject);
+            //for(int i = 0; i < objects.Length; i++)
+            //{
+            //    Debug.Log(objects[i].name);
+           // }
             //float on
             rb.gravityScale = 1;
         }
