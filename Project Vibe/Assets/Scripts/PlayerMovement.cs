@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
-        Collider2D[] collidersDynamic = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, dynamicEnvironment);
+        Collider2D[] collidersDynamic = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, dynamicEnvironment); //able to jump off dynamic
         if(collidersDynamic.Length > 0) {
             isGrounded = true;
         } 
