@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject PlayerEntity;
     public Rigidbody2D rb;
     public float maxSpeed = 12f;
     public float deacceleration = 5;
@@ -74,13 +75,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context) //context is command "space"
     {
-        if(context.performed && isGrounded == true)
+        if(context.performed && isGrounded == true && reverseGravityMode == false)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower); //jump
         }
-        if(context.canceled && rb.velocity.y > 0f) //higher jump depending on time held
+        else if(context.performed && isGrounded == true && reverseGravityMode == true)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -jumpPower); //jump downwards
+        }
+        if(context.canceled && rb.velocity.y > 0f && reverseGravityMode == false) //higher jump depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+        else if(context.canceled && rb.velocity.y > 0f && reverseGravityMode == true) //jump downwards more depending on time held
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y * 0.5f);
         }
     }
 
@@ -146,13 +155,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void activateReverse(InputAction.CallbackContext context)
     {
+        Vector3 upsideDown = new Vector3(0, 0, -180);
+        Vector3 rightsideUp = new Vector3(0, 0, 0);
         if(reverseGravityMode == true && context.performed){
             reverseGravityMode = false;
             Debug.Log("reverse off");
-
+            //flip dude back
+            PlayerEntity.transform.eulerAngles = rightsideUp;
             rb.gravityScale = 1;
-
-
+           
 
         }
         else if(reverseGravityMode == false && context.performed && noGravityMode == false && lowGravityMode == false)
@@ -160,10 +171,16 @@ public class PlayerMovement : MonoBehaviour
             reverseGravityMode = true;
             Debug.Log("reverse on");
 
+            //flip the dude
+            PlayerEntity.transform.eulerAngles = upsideDown;
+
             rb.gravityScale = -1;
 
             //check if touching a platform above
+            if(isGrounded == true)
+            {
 
+            }
             //if true, then allow for jump downwards
         }
 
