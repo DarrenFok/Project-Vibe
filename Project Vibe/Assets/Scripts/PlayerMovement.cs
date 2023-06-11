@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
+        dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
     }
 
     // Update is called once per frame
@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
             noGravityMode = false;
             Debug.Log("gravity on");
 
-            for(int i = 0; i < dynamicObjects.Length; i++)
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
             {
                 if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null)
                 {
@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
             noGravityMode = true;
             Debug.Log("gravity off");
             
-            for(int i = 0; i < dynamicObjects.Length; i++)
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 0
             {
                 if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null)
                 {
