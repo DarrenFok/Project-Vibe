@@ -71,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+        Collider2D[] collidersDynamic = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, dynamicEnvironment);
+        if(collidersDynamic.Length > 0) {
+            isGrounded = true;
+        } 
     }
 
     public void Jump(InputAction.CallbackContext context) //context is command "space"
@@ -197,9 +201,13 @@ public class PlayerMovement : MonoBehaviour
             if(isGrounded == false) 
             {
                 rb.AddForce(0.1f * movement * Vector2.right); //deaccelerate side to side movement when in the air
-                if(noGravityMode == false)
+                if(noGravityMode == false && reverseGravityMode == false)
                 {
                     rb.AddForce(5f * Vector2.down); //make them fall quicker in air
+                }
+                if(reverseGravityMode == true)
+                {
+                    rb.AddForce(5f * Vector2.up);
                 }
                
             }
