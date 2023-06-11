@@ -30,10 +30,12 @@ public class PlayerMovement : MonoBehaviour
     private bool lowGravityMode = false;
     public bool noGravityMode = false;
     public bool reverseGravityMode = false;
+
+    GameObject[] dynamicObjects;
     // Start is called before the first frame update
     void Start()
     {
-        
+        dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
     }
 
     // Update is called once per frame
@@ -116,14 +118,17 @@ public class PlayerMovement : MonoBehaviour
         {
             noGravityMode = false;
             Debug.Log("gravity on");
-            //var allArray = FindObjectsOfType(gameObject);
-            //GameObject[] objects = ; 
-            //FindObjectsOfType(GameObject);
-            //for(int i = 0; i < objects.Length; i++)
-            //{
-            //    Debug.Log(objects[i].name);
-           // }
-            //float on
+
+            for(int i = 0; i < dynamicObjects.Length; i++)
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null)
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1;
+                }
+                
+            }
+            
             rb.gravityScale = 1;
         }
 
@@ -132,6 +137,16 @@ public class PlayerMovement : MonoBehaviour
         {
             noGravityMode = true;
             Debug.Log("gravity off");
+            
+            for(int i = 0; i < dynamicObjects.Length; i++)
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null)
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 0;
+                }
+                
+            }
 
             //float off
             rb.gravityScale = 0;
