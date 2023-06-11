@@ -677,7 +677,19 @@ MonoBehaviour:
     m_ActionId: 314a7feb-0a15-4884-984f-2dda17f43931
     m_ActionName: Player/activateNo[/Keyboard/x]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 346562009}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: activateReverse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d640def9-f95a-4474-903d-e9c40dd5bff8
     m_ActionName: Player/activateReverse[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0

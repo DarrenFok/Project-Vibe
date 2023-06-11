@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool lowGravityMode = false;
     public bool noGravityMode = false;
-    private bool reverseGravityMode = false;
+    public bool reverseGravityMode = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -127,6 +127,32 @@ public class PlayerMovement : MonoBehaviour
             //float off
             rb.gravityScale = 0;
         }
+    }
+
+    public void activateReverse(InputAction.CallbackContext context)
+    {
+        if(reverseGravityMode == true && context.performed){
+            reverseGravityMode = false;
+            Debug.Log("reverse off");
+
+            rb.gravityScale = 1;
+
+
+
+        }
+        else if(reverseGravityMode == false && context.performed && noGravityMode == false && lowGravityMode == false)
+        {
+            reverseGravityMode = true;
+            Debug.Log("reverse on");
+
+            rb.gravityScale = -1;
+
+            //check if touching a platform above
+
+            //if true, then allow for jump downwards
+        }
+
+
     }
 
 
