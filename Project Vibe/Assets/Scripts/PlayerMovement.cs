@@ -87,9 +87,9 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-        else if(context.canceled && rb.velocity.y > 0f && reverseGravityMode == true) //jump downwards more depending on time held
+        else if(context.canceled && rb.velocity.y < 0f && reverseGravityMode == true) //jump downwards more depending on time held
         {
-            rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y * 0.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
     }
 
@@ -176,12 +176,6 @@ public class PlayerMovement : MonoBehaviour
 
             rb.gravityScale = -1;
 
-            //check if touching a platform above
-            if(isGrounded == true)
-            {
-
-            }
-            //if true, then allow for jump downwards
         }
 
 
@@ -207,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     rb.AddForce(5f * Vector2.down); //make them fall quicker in air
                 }
+               
             }
             else
             {
@@ -217,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
         else //deccelerate player when not pressing keys
         {
             float currentVelocity = rb.velocity.x;
-            float newVelocity = 0f;
+            //float newVelocity = 0f;
             if(currentVelocity < 0) //going left
             {
                 rb.AddForce(deacceleration * -currentVelocity * Vector2.right);
