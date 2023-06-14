@@ -102,16 +102,34 @@ public class PlayerMovement : MonoBehaviour
         if (lowGravityMode == true && context.performed)
         {
             lowGravityMode = false;
-            rb.gravityScale = 1f;
             Debug.Log("low gravity off");
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1f;
+                }
+                
+            }
+            rb.gravityScale = 1f;
         }
 
         //else if isGravity false, context performed, turn on gravity
         else if (lowGravityMode == false && noGravityMode == false && reverseGravityMode == false && context.performed)
         {
             lowGravityMode = true;
-            rb.gravityScale = 0.5f;
             Debug.Log("low gravity on");
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 0.5f;
+                }
+                
+            }
+            rb.gravityScale = 0.5f;
         }
     }
 
@@ -125,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
             for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
             {
-                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null)
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
                 {
                     Debug.Log(dynamicObjects[i].name);
                     dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -166,9 +184,17 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("reverse off");
             //flip dude back
             PlayerEntity.transform.eulerAngles = rightsideUp;
-            rb.gravityScale = 1;
-           
 
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1f;
+                }
+                
+            }
+            rb.gravityScale = 1;
         }
         else if(reverseGravityMode == false && context.performed && noGravityMode == false && lowGravityMode == false)
         {
@@ -178,8 +204,16 @@ public class PlayerMovement : MonoBehaviour
             //flip the dude
             PlayerEntity.transform.eulerAngles = upsideDown;
 
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to -1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = -1;
+                }
+                
+            }
             rb.gravityScale = -1;
-
         }
 
 
