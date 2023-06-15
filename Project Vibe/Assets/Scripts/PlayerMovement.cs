@@ -32,12 +32,16 @@ public class PlayerMovement : MonoBehaviour
     public bool noGravityMode = false;
     public bool reverseGravityMode = false;
 
+    //jetpacking stuff
     public bool isJetPacking = false;
+    public double currentFuel;
+    public double maxFuel = 4f;
 
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
     void Start()
     {
+        currentFuel = maxFuel; //start off with maximum fuel
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
     }
 
@@ -48,8 +52,6 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
-
-
         
         
     }
@@ -227,17 +229,22 @@ public class PlayerMovement : MonoBehaviour
     
     public void jetPack(InputAction.CallbackContext context)
     {
+
         float thrustForce = 30f; //how much thrust
         //hold down to use
         if (context.performed)
         {
             PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, thrustForce, 0);
             isJetPacking = true;
+
         }
         else if (context.canceled) //canceled once let go
         {
             PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, 0, 0);
-            isJetPacking = false;
+            if(isGrounded == true)
+            {
+                isJetPacking = false; //wait until landed to declare no jetpacking
+            }
         }
     }
 
