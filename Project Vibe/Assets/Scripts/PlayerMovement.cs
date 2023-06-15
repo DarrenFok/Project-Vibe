@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isJetPacking = false;
     public double currentFuel;
     public double maxFuel = 4f;
+    public InputAction jetpack;
 
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
@@ -52,8 +53,12 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
-        
-        
+
+        //decrease jetpack fuel
+       /* jetpack.performed += jetPack =>
+        {
+            currentFuel -= jetPack.duration; //not decreasing but why
+        };*/
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
@@ -241,10 +246,8 @@ public class PlayerMovement : MonoBehaviour
         else if (context.canceled) //canceled once let go
         {
             PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, 0, 0);
-            if(isGrounded == true)
-            {
-                isJetPacking = false; //wait until landed to declare no jetpacking
-            }
+            isJetPacking = false; //wait until landed to declare no jetpacking
+           
         }
     }
 
