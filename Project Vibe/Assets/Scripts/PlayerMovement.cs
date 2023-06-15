@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject PlayerEntity;
@@ -31,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     public bool noGravityMode = false;
     public bool reverseGravityMode = false;
 
+    public bool isJetPacking = false;
+
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,9 @@ public class PlayerMovement : MonoBehaviour
         GroundCheck();
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
+
+
+        
         
     }
 
@@ -79,19 +85,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context) //context is command "space"
     {
-        if(context.performed && isGrounded == true && reverseGravityMode == false)
+        if(context.performed && isGrounded == true && reverseGravityMode == false && isJetPacking == false)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower); //jump
         }
-        else if(context.performed && isGrounded == true && reverseGravityMode == true)
+        else if(context.performed && isGrounded == true && reverseGravityMode == true && isJetPacking == false)
         {
             rb.velocity = new Vector2(rb.velocity.x, -jumpPower); //jump downwards
         }
-        if(context.canceled && rb.velocity.y > 0f && reverseGravityMode == false) //higher jump depending on time held
+        if(context.canceled && rb.velocity.y > 0f && reverseGravityMode == false && isJetPacking == false) //higher jump depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-        else if(context.canceled && rb.velocity.y < 0f && reverseGravityMode == true) //jump downwards more depending on time held
+        else if(context.canceled && rb.velocity.y < 0f && reverseGravityMode == true && isJetPacking == false) //jump downwards more depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
@@ -218,7 +224,22 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
+    
+    public void jetPack(InputAction.CallbackContext context)
+    {
+        float thrustForce = 30f; //how much thrust
+        //hold down to use
+        if (context.performed)
+        {
+            PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, thrustForce, 0);
+            isJetPacking = true;
+        }
+        else if (context.canceled) //canceled once let go
+        {
+            PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, 0, 0);
+            isJetPacking = false;
+        }
+    }
 
     void FixedUpdate()
     {
