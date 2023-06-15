@@ -438,6 +438,9 @@ MonoBehaviour:
   isGrounded: 0
   noGravityMode: 0
   reverseGravityMode: 0
+  isJetPacking: 0
+  currentFuel: 0
+  maxFuel: 4
 --- !u!4 &346562010
 Transform:
   m_ObjectHideFlags: 0
@@ -1682,6 +1685,7 @@ GameObject:
   - component: {fileID: 991928347}
   - component: {fileID: 991928346}
   - component: {fileID: 991928345}
+  - component: {fileID: 991928348}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -1704,15 +1708,6 @@ MonoBehaviour:
   Player: {fileID: 346562010}
   NPC: {fileID: 991928347}
   InteractionDistance: 5
-  interactionControls:
-    m_Name: Interaction Controls
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 97955d70-ccfa-4512-860e-43e4b04b8429
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
   dialogue:
     name: NPC1
     sentences:
@@ -1787,6 +1782,92 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &991928348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991928344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 9e50f145f6ccd874f8d9eeef074e8e95, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 991928345}
+        m_TargetAssemblyTypeName: NPC_Interaction, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 144c459c-030c-4625-b561-60e5bd6be99e
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14e3c478-d5e0-4570-baed-44dfeb5e3300
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe74460e-6714-4fe7-8211-4bdb928c18fa
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a1c7c7dc-3b36-43fc-9cbf-f9d5e96e1b21
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eb309139-94d5-4bc5-9ae5-cb48ed573c55
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cd6278cf-becd-4d6d-924a-e8d492af1180
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f27c4278-0235-445a-ba55-c1d8ff9b3164
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 441be8f7-59a2-4a17-a898-536ac40df6bb
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15680301-5765-4158-895e-f70e99efd677
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27f590ee-487b-44bb-a922-62b5351f5827
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e3851bc6-a798-4637-a8c5-624c51cb1fb4
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1021230390
 GameObject:
   m_ObjectHideFlags: 0

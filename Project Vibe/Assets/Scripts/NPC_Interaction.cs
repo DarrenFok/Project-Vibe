@@ -15,20 +15,19 @@ public class NPC_Interaction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector2.Distance(Player.position, NPC.position) < InteractionDistance)
+        if (Vector2.Distance(Player.position, NPC.position) < InteractionDistance)
         {
             if (Input.GetButtonDown("Interact"))
             {
                 DialogueTrigger();
             }
         }
-
 
     }
 
