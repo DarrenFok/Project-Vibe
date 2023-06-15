@@ -441,6 +441,15 @@ MonoBehaviour:
   isJetPacking: 0
   currentFuel: 0
   maxFuel: 4
+  jetpack:
+    m_Name: Jetpack
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dc744a39-b925-4a4b-a53c-947a0525e030
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!4 &346562010
 Transform:
   m_ObjectHideFlags: 0
@@ -1708,6 +1717,15 @@ MonoBehaviour:
   Player: {fileID: 346562010}
   NPC: {fileID: 991928347}
   InteractionDistance: 5
+  interactionControls:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   dialogue:
     name: NPC1
     sentences:
