@@ -35,7 +35,9 @@ public class PlayerMovement : MonoBehaviour
     //jetpacking stuff
     public bool isJetPacking = false;
     public double currentFuel;
-    public double maxFuel = 4f;
+    public double maxFuel = 100;
+    public double reverseFuel;
+    public double maxReverseFuel = 1000;
     public InputAction jetpack;
 
     GameObject[] dynamicObjects;
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         currentFuel = maxFuel; //start off with maximum fuel
+        reverseFuel = maxReverseFuel;
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
     }
 
@@ -51,6 +54,29 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = playerControls.ReadValue<Vector2>().x; //basicall
         GroundCheck();
+
+        if(reverseGravityMode && reverseFuel > 0)
+        {
+            reverseFuel -= 1;
+        }
+        else if(reverseGravityMode && reverseFuel <= 0)
+        {
+            Vector3 upsideDown = new Vector3(0, 0, -180);
+            Vector3 rightsideUp = new Vector3(0, 0, 0);
+            reverseGravityMode = false;
+            Debug.Log("reverse off");
+            //flip dude back
+            PlayerEntity.transform.eulerAngles = rightsideUp;
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1f;
+                }
+            }
+            rb.gravityScale = 1;
+        }
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
 
@@ -129,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //else if isGravity false, context performed, turn on gravity
-        else if (lowGravityMode == false && noGravityMode == false && reverseGravityMode == false && context.performed)
+        else if (lowGravityMode == false && noGravityMode == false && reverseGravityMode == false && context.performed && reverseFuel > 0)
         {
             lowGravityMode = true;
             Debug.Log("low gravity on");
@@ -308,3 +334,4 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = localScale;
     }
 }
+

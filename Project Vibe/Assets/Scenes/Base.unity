@@ -440,7 +440,9 @@ MonoBehaviour:
   reverseGravityMode: 0
   isJetPacking: 0
   currentFuel: 0
-  maxFuel: 4
+  maxFuel: 1000
+  reverseFuel: 1000
+  maxReverseFuel: 1000
   jetpack:
     m_Name: Jetpack
     m_Type: 0
@@ -1718,10 +1720,10 @@ MonoBehaviour:
   NPC: {fileID: 991928347}
   InteractionDistance: 5
   interactionControls:
-    m_Name: 
+    m_Name: Interaction Controls
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 
+    m_Id: db605bb3-8a23-4cf6-ac12-99e48a13f304
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
