@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     //jump
     private float jumpPower = 10f;
+    //private float timer = 0f;
 
     private float moveInput;
     private bool isFacingRight = true;
@@ -34,10 +35,15 @@ public class PlayerMovement : MonoBehaviour
 
     //jetpacking stuff
     public bool isJetPacking = false;
+
     public double currentFuel;
     public double maxFuel = 100;
+
     public double reverseFuel;
-    public double maxReverseFuel = 1000;
+    public double maxReverseFuel = 50;
+
+    public double noFuel;
+    public double maxNoFuel = 50;
     public InputAction jetpack;
 
     GameObject[] dynamicObjects;
@@ -46,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentFuel = maxFuel; //start off with maximum fuel
         reverseFuel = maxReverseFuel;
+        noFuel = maxNoFuel;
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
     }
 
@@ -55,9 +62,10 @@ public class PlayerMovement : MonoBehaviour
         moveInput = playerControls.ReadValue<Vector2>().x; //basicall
         GroundCheck();
 
+        //turning off reverse Gravity in case of running out of "fuel" (callback context is not updated per frame so have to check "fuel" status manually here in update function)
         if(reverseGravityMode && reverseFuel > 0)
         {
-            reverseFuel -= 1;
+            reverseFuel -= 10 * Time.deltaTime;
         }
         else if(reverseGravityMode && reverseFuel <= 0)
         {
@@ -74,6 +82,27 @@ public class PlayerMovement : MonoBehaviour
                     Debug.Log(dynamicObjects[i].name);
                     dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1f;
                 }
+            }
+            rb.gravityScale = 1;
+        }
+        //turning off no Gravity in case of running out of "fuel"
+        if(noGravityMode && noFuel > 0)
+        {
+            noFuel -= 10 * Time.deltaTime;
+        }
+        else if(noGravityMode && noFuel <= 0)
+        {
+            noGravityMode = false;
+            Debug.Log("gravity on");
+
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1;
+                }
+                
             }
             rb.gravityScale = 1;
         }
@@ -152,6 +181,7 @@ public class PlayerMovement : MonoBehaviour
                 
             }
             rb.gravityScale = 1f;
+
         }
 
         //else if isGravity false, context performed, turn on gravity
