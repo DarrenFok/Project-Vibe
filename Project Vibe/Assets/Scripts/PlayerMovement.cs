@@ -36,15 +36,17 @@ public class PlayerMovement : MonoBehaviour
     //jetpacking stuff
     public bool isJetPacking = false;
 
-    public double currentFuel;
-    public double maxFuel = 100;
+    public float currentFuel;
+    public float maxFuel = 100;
 
-    public double reverseFuel;
-    public double maxReverseFuel = 50;
+    public float reverseFuel;
+    public float maxReverseFuel = 50;
 
-    public double noFuel;
-    public double maxNoFuel = 50;
+    public float noFuel;
+    public float maxNoFuel = 50;
     public InputAction jetpack;
+
+    public FuelBar fuelBar;
 
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
@@ -54,6 +56,9 @@ public class PlayerMovement : MonoBehaviour
         reverseFuel = maxReverseFuel;
         noFuel = maxNoFuel;
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
+
+        //jetpack fuel UI
+        fuelBar.setMaxFuel(maxFuel);
     }
 
     // Update is called once per frame
@@ -295,9 +300,17 @@ public class PlayerMovement : MonoBehaviour
         //hold down to use
         if (context.performed)
         {
-            PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, thrustForce, 0);
-            isJetPacking = true;
-
+            if(currentFuel > 0) //jetpacking not allowed if out of fuel
+            {
+                PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, thrustForce, 0);
+                isJetPacking = true;
+                currentFuel = currentFuel - 100;
+                fuelBar.setFuel(currentFuel);
+            }
+            else if (currentFuel == 0)
+            {
+                Debug.Log("out of fuel!");
+            }
         }
         else if (context.canceled) //canceled once let go
         {
