@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public float currentFuel;
     public float maxFuel = 100;
 
+    //gravity mechanics
     public float reverseFuel;
     public float maxReverseFuel = 50;
 
@@ -46,7 +47,9 @@ public class PlayerMovement : MonoBehaviour
     public float maxNoFuel = 50;
     public InputAction jetpack;
 
-    public FuelBar fuelBar;
+    //fuel ui
+    public FuelBar reverseFuelBar;
+    public FuelBar noGravFuelBar;
 
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
@@ -58,7 +61,8 @@ public class PlayerMovement : MonoBehaviour
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
 
         //jetpack fuel UI
-        fuelBar.setMaxFuel(maxFuel);
+        reverseFuelBar.setMaxFuel(maxReverseFuel);
+        noGravFuelBar.setMaxFuel(maxNoFuel);
     }
 
     // Update is called once per frame
@@ -71,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         if(reverseGravityMode && reverseFuel > 0)
         {
             reverseFuel -= 10 * Time.deltaTime;
+            reverseFuelBar.setFuel(reverseFuel);
         }
         else if(reverseGravityMode && reverseFuel <= 0)
         {
@@ -94,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
         if(noGravityMode && noFuel > 0)
         {
             noFuel -= 10 * Time.deltaTime;
+            noGravFuelBar.setFuel(noFuel);
         }
         else if(noGravityMode && noFuel <= 0)
         {
@@ -304,8 +310,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 PlayerEntity.GetComponent<ConstantForce2D>().force = new Vector3(0, thrustForce, 0);
                 isJetPacking = true;
-                currentFuel = currentFuel - 100;
-                fuelBar.setFuel(currentFuel);
             }
             else if (currentFuel == 0)
             {
