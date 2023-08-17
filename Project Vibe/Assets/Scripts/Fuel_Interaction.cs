@@ -23,13 +23,10 @@ public class Fuel_Interaction : MonoBehaviour
     {
         if (Vector2.Distance(Player.position, FuelCan.position) < InteractionDistance)
         {
-            if (Input.GetButtonDown("Interact"))
-            {
-                Player_Movement.RestoreFuel();
-                //delete the fuel can object once consumed
-                Destroy(FuelCanObject);
-                Debug.Log("Fuel can consumed!");
-            }
+            Player_Movement.RestoreFuel();
+            //delete the fuel can object once consumed
+            Destroy(FuelCanObject);
+            Debug.Log("Fuel can consumed!");
         }
     }
 }
