@@ -51,6 +51,10 @@ public class PlayerMovement : MonoBehaviour
     public FuelBar reverseFuelBar;
     public FuelBar noGravFuelBar;
 
+    //respawn point
+    private Vector2 respawnPoint;
+    public GameObject fallDetector; 
+
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
     void Start()
@@ -63,6 +67,9 @@ public class PlayerMovement : MonoBehaviour
         //jetpack fuel UI
         reverseFuelBar.setMaxFuel(maxReverseFuel);
         noGravFuelBar.setMaxFuel(maxNoFuel);
+
+        //set respawn point to current point
+        respawnPoint = rb.transform.position;
     }
 
     // Update is called once per frame
@@ -119,6 +126,9 @@ public class PlayerMovement : MonoBehaviour
         }
         reverseFuelBar.setFuel(reverseFuel);
         noGravFuelBar.setFuel(noFuel);
+
+        fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y); //fall detector will follow the player's x, not the y (constant)
+        
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
 
@@ -127,6 +137,19 @@ public class PlayerMovement : MonoBehaviour
          {
              currentFuel -= jetPack.duration; //not decreasing but why
          };*/
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "FallDetector")
+        {
+            transform.position = respawnPoint;
+        }
+        else if (collision.tag == "Checkpoint")
+        {
+            respawnPoint = transform.position; //set respawnpoint to new checkpoint
+            Debug.Log("checkpoint set");
+        }
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
@@ -331,6 +354,12 @@ public class PlayerMovement : MonoBehaviour
             isJetPacking = false; //wait until landed to declare no jetpacking
            
         }
+    }
+
+    public void killPlayer()
+    {
+        rb.transform.position = respawnPoint; //reset them back to the last checkpoint
+        Debug.Log("player died");
     }
 
     void FixedUpdate()

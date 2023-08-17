@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dynamic
+  - Checkpoint
+  - FallDetector
   layers:
   - Default
   - TransparentFX

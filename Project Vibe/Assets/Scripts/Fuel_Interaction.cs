@@ -7,7 +7,7 @@ public class Fuel_Interaction : MonoBehaviour
 {
     public Transform Player;
     public Transform FuelCan;
-    public float InteractionDistance = 5;
+    public float InteractionDistance = 1;
     //public Dialogue dialogue;
     public PlayerMovement Player_Movement;
     public GameObject FuelCanObject;
