@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         if(reverseGravityMode && reverseFuel > 0)
         {
             reverseFuel -= 10 * Time.deltaTime;
-            reverseFuelBar.setFuel(reverseFuel);
+            
         }
         else if(reverseGravityMode && reverseFuel <= 0)
         {
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         if(noGravityMode && noFuel > 0)
         {
             noFuel -= 10 * Time.deltaTime;
-            noGravFuelBar.setFuel(noFuel);
+         
         }
         else if(noGravityMode && noFuel <= 0)
         {
@@ -117,14 +117,16 @@ public class PlayerMovement : MonoBehaviour
             }
             rb.gravityScale = 1;
         }
+        reverseFuelBar.setFuel(reverseFuel);
+        noGravFuelBar.setFuel(noFuel);
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
 
         //decrease jetpack fuel
-       /* jetpack.performed += jetPack =>
-        {
-            currentFuel -= jetPack.duration; //not decreasing but why
-        };*/
+        /* jetpack.performed += jetPack =>
+         {
+             currentFuel -= jetPack.duration; //not decreasing but why
+         };*/
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
@@ -138,6 +140,13 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls.Disable();
         
+    }
+
+    public void RestoreFuel() //restores fuel upon being called
+    {
+        reverseFuel = maxReverseFuel;
+        noFuel = maxNoFuel;
+        Debug.Log("fuel restored");
     }
 
     void GroundCheck()
