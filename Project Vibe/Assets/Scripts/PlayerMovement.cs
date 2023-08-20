@@ -366,24 +366,51 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
         //ANIMATION SETTINGS
-        if(moveInput == 1)
-        {
-            animator.SetBool("isMovingRight", true);
-            animator.SetBool("isMovingLeft", false);
-        }
 
-        else if(moveInput == -1)
-        {
-            animator.SetBool("isMovingRight", false);
-            animator.SetBool("isMovingLeft", true);
-        }
 
+        if(!reverseGravityMode)
+        {
+            if(moveInput == 1)
+            {   
+                animator.SetBool("isMovingRight", true);
+                animator.SetBool("isMovingLeft", false);
+            }
+
+            else if(moveInput == -1)
+            {
+                animator.SetBool("isMovingRight", false);
+                animator.SetBool("isMovingLeft", true);
+            }
+
+            else
+            {
+                animator.SetBool("isMovingRight", false);
+                animator.SetBool("isMovingLeft", false);
+            }
+        }
         else
         {
-            animator.SetBool("isMovingRight", false);
-            animator.SetBool("isMovingLeft", false);
+            if(moveInput == 1)
+            {   
+                animator.SetBool("isMovingRight", false);
+                animator.SetBool("isMovingLeft", true);
+            }
+
+            else if(moveInput == -1)
+            {
+                animator.SetBool("isMovingRight", true);
+                animator.SetBool("isMovingLeft", false);
+            }
+
+            else
+            {
+                animator.SetBool("isMovingRight", false);
+                animator.SetBool("isMovingLeft", false);
+            }
         }
+        
 
 
 
