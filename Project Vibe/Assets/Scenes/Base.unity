@@ -4197,7 +4197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowSpeed: 2
   yOffset: 1
-  zOffset: -15
+  zOffset: -10
   target: {fileID: 346562010}
 --- !u!1 &1456374340
 GameObject:

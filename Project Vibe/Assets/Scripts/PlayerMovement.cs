@@ -370,12 +370,22 @@ public class PlayerMovement : MonoBehaviour
         if(moveInput == 1)
         {
             animator.SetBool("isMovingRight", true);
+            animator.SetBool("isMovingLeft", false);
         }
 
-        else if(moveInput == 0)
+        else if(moveInput == -1)
         {
             animator.SetBool("isMovingRight", false);
+            animator.SetBool("isMovingLeft", true);
         }
+
+        else
+        {
+            animator.SetBool("isMovingRight", false);
+            animator.SetBool("isMovingLeft", false);
+        }
+
+
 
         if(moveInput != 0) //copied this from a video
         {
