@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float deacceleration = 5;
     public InputAction playerControls;
     public LayerMask dynamicEnvironment;
+    public Animator animator;
 
     //Ground collider stuff 
     public Transform groundCheckCollider;
@@ -75,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveInput = playerControls.ReadValue<Vector2>().x; //basicall
+        moveInput = playerControls.ReadValue<Vector2>().x; 
+        Debug.Log("input:" + moveInput);
         GroundCheck();
 
         //turning off reverse Gravity in case of running out of "fuel" (callback context is not updated per frame so have to check "fuel" status manually here in update function)
@@ -364,6 +366,17 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        //ANIMATION SETTINGS
+        if(moveInput == 1)
+        {
+            animator.SetBool("isMovingRight", true);
+        }
+
+        else if(moveInput == 0)
+        {
+            animator.SetBool("isMovingRight", false);
+        }
+
         if(moveInput != 0) //copied this from a video
         {
             float targetSpeed = moveInput * maxSpeed;
