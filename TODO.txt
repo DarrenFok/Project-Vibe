@@ -6,3 +6,8 @@ gravity mechanics:
 - decrease gravity (fall slower, jump higher)
 - reverse gravity (fall upwards) - working fine now (darren)
 - no gravity mode - if head hits platform with no gravity, then y is frozen, wont move up if go past ceiling
+
+AUG 20:
+Create animations for NPC interactions and backgrounds
+Replace temporary UI
+create levels
