@@ -11,6 +11,7 @@ public class NPC_Interaction : MonoBehaviour
     //public UI DialogueUI; was causing compilation errors
     public InputAction interactionControls;
     public Dialogue dialogue;
+    public GameObject interactPopUp;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +24,15 @@ public class NPC_Interaction : MonoBehaviour
     {
         if (Vector2.Distance(Player.position, NPC.position) < InteractionDistance)
         {
+            interactPopUp.GetComponent<SpriteRenderer>().enabled = true;
             if (Input.GetButtonDown("Interact"))
             {
                 DialogueTrigger();
             }
+        }
+        else
+        {
+            interactPopUp.GetComponent<SpriteRenderer>().enabled = false;
         }
 
     }
