@@ -16,3 +16,4 @@ AUG 28:
 Replace Sprite for refills
 Implement levels
 Design Main Menu
+-BUG: when respawning after dying in reverse (from height limit), character continues going up for 1-2 seconds before returning to normal gravity

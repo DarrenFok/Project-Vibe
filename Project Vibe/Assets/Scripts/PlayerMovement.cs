@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         //turning off reverse Gravity in case of running out of "fuel" (callback context is not updated per frame so have to check "fuel" status manually here in update function)
         if(reverseGravityMode && reverseFuel > 0)
         {
-            reverseFuel -= 300 * Time.deltaTime;
+            reverseFuel -= 150 * Time.deltaTime;
             
         }
         else if(reverseGravityMode && reverseFuel <= 0)
@@ -146,6 +146,46 @@ public class PlayerMovement : MonoBehaviour
         if (collision.tag == "FallDetector")
         {
             transform.position = respawnPoint;
+            //set things back to normal before respawning
+            if (noGravityMode == true)
+            {
+                noGravityMode = false;
+                Debug.Log("gravity on");
+
+                for (int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+                {
+                    if (dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                    {
+                        Debug.Log(dynamicObjects[i].name);
+                        dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1;
+                    }
+
+                }
+
+                rb.gravityScale = 1;
+            }
+
+            Vector3 rightsideUp = new Vector3(0, 0, 0);
+            if (reverseGravityMode == true)
+            {
+                reverseGravityMode = false;
+                Debug.Log("reverse off");
+                //flip dude back
+                PlayerEntity.transform.eulerAngles = rightsideUp;
+
+                for (int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
+                {
+                    if (dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                    {
+                        Debug.Log(dynamicObjects[i].name);
+                        dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 1f;
+                    }
+
+                }
+                rb.gravityScale = 1;
+            }
+
+
         }
         else if (collision.tag == "Checkpoint")
         {
