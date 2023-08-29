@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         //turning off reverse Gravity in case of running out of "fuel" (callback context is not updated per frame so have to check "fuel" status manually here in update function)
         if(reverseGravityMode && reverseFuel > 0)
         {
-            reverseFuel -= 10 * Time.deltaTime;
+            reverseFuel -= 300 * Time.deltaTime;
             
         }
         else if(reverseGravityMode && reverseFuel <= 0)
