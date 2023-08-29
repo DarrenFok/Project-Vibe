@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -54,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
 
     //respawn point
     private Vector2 respawnPoint;
-    public GameObject fallDetector; 
+    public GameObject fallDetector;
+    public GameObject heightLimit;
 
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
@@ -130,7 +132,8 @@ public class PlayerMovement : MonoBehaviour
         noGravFuelBar.setFuel(noFuel);
 
         fallDetector.transform.position = new Vector2(transform.position.x, fallDetector.transform.position.y); //fall detector will follow the player's x, not the y (constant)
-        
+        heightLimit.transform.position = new Vector2(transform.position.x, heightLimit.transform.position.y);
+
         //if(playerControls.ReadValue)
         //if(playerControls.ReadValue)
 
@@ -145,7 +148,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.tag == "FallDetector")
         {
-            transform.position = respawnPoint;
             //set things back to normal before respawning
             if (noGravityMode == true)
             {
@@ -184,13 +186,19 @@ public class PlayerMovement : MonoBehaviour
                 }
                 rb.gravityScale = 1;
             }
-
+            transform.position = respawnPoint;
+            reverseFuel = maxReverseFuel; //refuel
 
         }
         else if (collision.tag == "Checkpoint")
         {
             respawnPoint = transform.position; //set respawnpoint to new checkpoint
             Debug.Log("checkpoint set");
+        }
+
+        else if (collision.tag == "Portal_Level1")
+        {
+            SceneManager.LoadScene(3); //loads level 2
         }
     }
 
