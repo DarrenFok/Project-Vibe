@@ -11,3 +11,8 @@ AUG 20:
 Create animations for NPC interactions and backgrounds
 Replace temporary UI
 create levels
+
+AUG 28:
+Replace Sprite for refills
+Implement levels
+Design Main Menu
