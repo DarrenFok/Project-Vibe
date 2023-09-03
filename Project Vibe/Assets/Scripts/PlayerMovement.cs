@@ -194,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
         {
             respawnPoint = transform.position; //set respawnpoint to new checkpoint
             Debug.Log("checkpoint set");
+            RestoreFuel();
         }
 
         else if (collision.tag == "Portal_Level1")
