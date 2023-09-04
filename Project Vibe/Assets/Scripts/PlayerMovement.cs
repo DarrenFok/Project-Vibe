@@ -199,6 +199,11 @@ public class PlayerMovement : MonoBehaviour
             respawnPoint = transform.position; //set respawnpoint to new checkpoint
             Debug.Log("checkpoint set");
             RestoreFuel();
+            dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
+            for(int i = 0; i < dynamicObjects.Length; i++)
+            {
+            Debug.Log(dynamicObjects[i].name);
+            }
         }
 
         else if (collision.tag == "Portal_Level1")
