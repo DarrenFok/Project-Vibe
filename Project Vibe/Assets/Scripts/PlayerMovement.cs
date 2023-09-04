@@ -66,6 +66,10 @@ public class PlayerMovement : MonoBehaviour
         reverseFuel = maxReverseFuel;
         noFuel = maxNoFuel;
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
+        for(int i = 0; i < dynamicObjects.Length; i++)
+        {
+            Debug.Log(dynamicObjects[i].name);
+        }
 
         //jetpack fuel UI
         reverseFuelBar.setMaxFuel(maxReverseFuel);
@@ -79,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         moveInput = playerControls.ReadValue<Vector2>().x; 
-        Debug.Log("input:" + moveInput);
+        //Debug.Log("input:" + moveInput);
         GroundCheck();
 
         //turning off reverse Gravity in case of running out of "fuel" (callback context is not updated per frame so have to check "fuel" status manually here in update function)
