@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxReverseFuel = 50;
 
     public float noFuel;
-    public float maxNoFuel = 50;
+    public float maxNoFuel = 0;
     public InputAction jetpack;
 
     //fuel ui
@@ -58,13 +58,16 @@ public class PlayerMovement : MonoBehaviour
     public GameObject fallDetector;
     public GameObject heightLimit;
 
+    //stage
+    private bool stage1 = true;
+
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
     void Start()
     {
         currentFuel = maxFuel; //start off with maximum fuel
-        reverseFuel = maxReverseFuel;
-        noFuel = maxNoFuel;
+        reverseFuel = maxReverseFuel; 
+        noFuel = maxNoFuel; //start with 0
         dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic"); //get all gameObjecst that have tag "dynamic" used later in gravity contorl functions
         for(int i = 0; i < dynamicObjects.Length; i++)
         {
@@ -82,6 +85,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(stage1 == false)
+        {
+            maxReverseFuel = 0;
+            maxNoFuel = 1000;
+        }
         moveInput = playerControls.ReadValue<Vector2>().x; 
         //Debug.Log("input:" + moveInput);
         GroundCheck();
@@ -209,6 +217,11 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.tag == "Portal_Level1")
         {
             SceneManager.LoadScene(3); //loads level 2
+        }
+
+        else if(collision.tag == "stage2")
+        {
+            stage1 = false;
         }
     }
 
