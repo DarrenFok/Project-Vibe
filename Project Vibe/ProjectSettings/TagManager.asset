@@ -10,6 +10,7 @@ TagManager:
   - Portal_Level1
   - spawnCheck
   - stage2
+  - spawnPlatform
   layers:
   - Default
   - TransparentFX

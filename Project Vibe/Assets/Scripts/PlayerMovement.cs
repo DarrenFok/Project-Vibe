@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject spawnPlatformArea;
     public GameObject PlayerEntity;
     public Rigidbody2D rb;
     public float maxSpeed = 12f;
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxReverseFuel = 50;
 
     public float noFuel;
-    public float maxNoFuel = 0;
+    public float maxNoFuel = 50;
     public InputAction jetpack;
 
     //fuel ui
@@ -60,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
 
     //stage
     private bool stage1 = true;
+    private bool stage2 = false;
+    private bool stage3 = false;
 
     GameObject[] dynamicObjects;
     // Start is called before the first frame update
@@ -85,11 +88,24 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(stage1 == false)
+        if(stage1)
+        {
+            noFuel = 0;
+        }
+
+        else if(stage2)
+        {
+            reverseFuel = 0;
+        }
+        /*
+        if(stage1 == false && stage2 == true)
         {
             maxReverseFuel = 0;
+            reverseFuel = 0;
             maxNoFuel = 1000;
+            stage2 = false;
         }
+        */
         moveInput = playerControls.ReadValue<Vector2>().x; 
         //Debug.Log("input:" + moveInput);
         GroundCheck();
@@ -121,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         //turning off no Gravity in case of running out of "fuel"
         if(noGravityMode && noFuel > 0)
         {
-            noFuel -= 10 * Time.deltaTime;
+            noFuel -= 150 * Time.deltaTime;
          
         }
         else if(noGravityMode && noFuel <= 0)
@@ -200,6 +216,7 @@ public class PlayerMovement : MonoBehaviour
             }
             transform.position = respawnPoint;
             reverseFuel = maxReverseFuel; //refuel
+            spawnPlatformArea.GetComponent<spawnPlatformSTG2>().ResetObject();
 
         }
         else if (collision.tag == "Checkpoint")
@@ -210,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
             dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
             for(int i = 0; i < dynamicObjects.Length; i++)
             {
-            Debug.Log(dynamicObjects[i].name);
+                Debug.Log(dynamicObjects[i].name);
             }
         }
 
@@ -222,6 +239,12 @@ public class PlayerMovement : MonoBehaviour
         else if(collision.tag == "stage2")
         {
             stage1 = false;
+            stage2 = true;
+        }
+
+        else if(collision.tag == "spawnPlatform")
+        {
+            dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
         }
     }
 
@@ -433,6 +456,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.transform.position = respawnPoint; //reset them back to the last checkpoint
         Debug.Log("player died");
+        
     }
 
     void FixedUpdate()
