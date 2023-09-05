@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Base.unity
     guid: 11e37447481f7864ba749a855294601d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/1 - Reverse Gravity.unity
     guid: 6f160b3f6269667459283dd0970bfe77
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/2 - Placeholder.unity
     guid: a6a388f27c55ff8408dcca304fbee879
   m_configObjects:
