@@ -429,6 +429,7 @@ public class PlayerMovement : MonoBehaviour
     
     public void jetPack(InputAction.CallbackContext context)
     {
+        /*
 
         float thrustForce = 30f; //how much thrust
         //hold down to use
@@ -450,6 +451,7 @@ public class PlayerMovement : MonoBehaviour
             isJetPacking = false; //wait until landed to declare no jetpacking
            
         }
+        */
     }
 
     public void killPlayer()
