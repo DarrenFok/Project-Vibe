@@ -261,8 +261,7 @@ public class PlayerMovement : MonoBehaviour
 
         else if(collision.tag == "quit")
         {
-            Debug.Log("test");
-            Application.Quit();
+            SceneManager.LoadScene("Menu");
         }
     }
 
