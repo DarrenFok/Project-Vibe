@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private float decceleration = -3f; //ignore that theres two imma fix it later
     private float velPower = 1f;
 
-    private bool lowGravityMode = false;
+    //private bool lowGravityMode = false; UNUSED
     public bool noGravityMode = false;
     public bool reverseGravityMode = false;
 
@@ -247,6 +247,12 @@ public class PlayerMovement : MonoBehaviour
         {
             dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
         }
+
+        else if(collision.tag == "stage3")
+        {
+            stage3 = true;
+            stage2 = false;
+        }
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
@@ -305,8 +311,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void activateLow(InputAction.CallbackContext context)
+    public void activateLow(InputAction.CallbackContext context) //UNUSED
     {
+        /*
         if (lowGravityMode == true && context.performed)
         {
             lowGravityMode = false;
@@ -321,7 +328,7 @@ public class PlayerMovement : MonoBehaviour
                 
             }
             rb.gravityScale = 1f;
-
+        
         }
 
         //else if isGravity false, context performed, turn on gravity
@@ -340,6 +347,7 @@ public class PlayerMovement : MonoBehaviour
             }
             rb.gravityScale = 0.5f;
         }
+        */
     }
 
     public void activateNo(InputAction.CallbackContext context)
@@ -364,8 +372,28 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //else if noGravityMode is false (gravity on), context performed, turn off gravity
-        else if (noGravityMode == false && context.performed && lowGravityMode == false && reverseGravityMode == false)
+        else if (noGravityMode == false && context.performed && reverseGravityMode == false)
         {
+            noGravityMode = true;
+            Debug.Log("gravity off");
+            
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 0
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null)
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = 0;
+                }
+                
+            }
+
+            //float off
+            rb.gravityScale = 0;
+        }
+
+        else if (noGravityMode == false && context.performed && reverseGravityMode == true)
+        {
+            reverseGravityMode = false;
             noGravityMode = true;
             Debug.Log("gravity off");
             
@@ -405,8 +433,29 @@ public class PlayerMovement : MonoBehaviour
             }
             rb.gravityScale = 1;
         }
-        else if(reverseGravityMode == false && context.performed && noGravityMode == false && lowGravityMode == false)
+        else if(reverseGravityMode == false && context.performed && noGravityMode == false)
         {
+            reverseGravityMode = true;
+            Debug.Log("reverse on");
+
+            //flip the dude
+            PlayerEntity.transform.eulerAngles = upsideDown;
+
+            for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to -1
+            {
+                if(dynamicObjects[i].GetComponent<Rigidbody2D>() != null) //preventing errors
+                {
+                    Debug.Log(dynamicObjects[i].name);
+                    dynamicObjects[i].GetComponent<Rigidbody2D>().gravityScale = -1;
+                }
+                
+            }
+            rb.gravityScale = -1;
+        }
+
+        else if(reverseGravityMode == false && context.performed && noGravityMode == true)
+        {
+            noGravityMode = false;
             reverseGravityMode = true;
             Debug.Log("reverse on");
 

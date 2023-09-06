@@ -11,6 +11,7 @@ TagManager:
   - spawnCheck
   - stage2
   - spawnPlatform
+  - stage3
   layers:
   - Default
   - TransparentFX
