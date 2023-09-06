@@ -12,6 +12,8 @@ TagManager:
   - stage2
   - spawnPlatform
   - stage3
+  - playagain
+  - quit
   layers:
   - Default
   - TransparentFX

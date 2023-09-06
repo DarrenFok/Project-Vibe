@@ -253,6 +253,17 @@ public class PlayerMovement : MonoBehaviour
             stage3 = true;
             stage2 = false;
         }
+
+        else if(collision.tag == "playagain")
+        {
+            SceneManager.LoadScene("Base");
+        }
+
+        else if(collision.tag == "quit")
+        {
+            Debug.Log("test");
+            Application.Quit();
+        }
     }
 
     //needed for unitys *new* input system (Window -> Package Manager -> Select search for Packages in Unity Registry -> Search for Input System)
