@@ -88,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dynamicObjects = GameObject.FindGameObjectsWithTag("Dynamic");
         if(stage1)
         {
             noFuel = 0;
