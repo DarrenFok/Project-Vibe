@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
 
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    public bool isDialogue = false;
 
     public Animator animator; //for animating dialogue box in and out of screen
 
@@ -21,18 +22,22 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        animator.SetBool("IsOpen", true);
 
-        //Debug.Log("Starting conversation with " + dialogue.name);
-
-        nameText.text = dialogue.name;
-
-        foreach(string sentence in dialogue.sentences)
+        if(isDialogue == false) //only allow them to open new dialogue if no box is open
         {
-            sentences.Enqueue(sentence);
-        }
+            isDialogue = true;
+            animator.SetBool("IsOpen", true);
+            //Debug.Log("Starting conversation with " + dialogue.name);
 
-        DisplayNextSentence();
+            nameText.text = dialogue.name;
+
+            foreach (string sentence in dialogue.sentences)
+            {
+                sentences.Enqueue(sentence);
+            }
+
+            DisplayNextSentence();
+        }
     }
 
     public void DisplayNextSentence()
@@ -61,6 +66,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        isDialogue = false;
         animator.SetBool("IsOpen", false);
     }
 }
