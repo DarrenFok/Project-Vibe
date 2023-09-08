@@ -7,6 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //public AudioClip activate;
+    //public AudioClip runout;
+    public AudioSource source;
+    public AudioClip jumpSound;
+    public AudioClip activate;
+    public AudioClip off;
+    public AudioClip death;
     public GameObject spawnPlatformArea;
     public GameObject PlayerEntity;
     public Rigidbody2D rb;
@@ -123,6 +130,8 @@ public class PlayerMovement : MonoBehaviour
             Vector3 rightsideUp = new Vector3(0, 0, 0);
             reverseGravityMode = false;
             Debug.Log("reverse off");
+            source.PlayOneShot(off);
+
             //flip dude back
             PlayerEntity.transform.eulerAngles = rightsideUp;
             for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
@@ -145,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
         {
             noGravityMode = false;
             Debug.Log("gravity on");
+            source.PlayOneShot(off);
 
             for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
             {
@@ -177,6 +187,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.tag == "FallDetector")
         {
+            source.PlayOneShot(death);
             //set things back to normal before respawning
             if (noGravityMode == true)
             {
@@ -306,18 +317,22 @@ public class PlayerMovement : MonoBehaviour
         if(context.performed && isGrounded == true && reverseGravityMode == false && isJetPacking == false)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpPower); //jump
+            source.PlayOneShot(jumpSound);
         }
         else if(context.performed && isGrounded == true && reverseGravityMode == true && isJetPacking == false)
         {
             rb.velocity = new Vector2(rb.velocity.x, -jumpPower); //jump downwards
+            source.PlayOneShot(jumpSound);
         }
         if(context.canceled && rb.velocity.y > 0f && reverseGravityMode == false && isJetPacking == false) //higher jump depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            //AudioSource.PlayClipAtPoint(jumpSound, transform.position, 1);
         }
         else if(context.canceled && rb.velocity.y < 0f && reverseGravityMode == true && isJetPacking == false) //jump downwards more depending on time held
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            //AudioSource.PlayClipAtPoint(jumpSound, transform.position, 1);
         }
     }
 
@@ -366,6 +381,7 @@ public class PlayerMovement : MonoBehaviour
         if (noGravityMode == true && context.performed)
         {
             noGravityMode = false;
+            source.PlayOneShot(off);
             Debug.Log("gravity on");
 
             for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 1
@@ -385,6 +401,7 @@ public class PlayerMovement : MonoBehaviour
         else if (noGravityMode == false && context.performed && reverseGravityMode == false)
         {
             noGravityMode = true;
+            source.PlayOneShot(activate);
             Debug.Log("gravity off");
             
             for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 0
@@ -405,6 +422,7 @@ public class PlayerMovement : MonoBehaviour
         {
             reverseGravityMode = false;
             noGravityMode = true;
+            source.PlayOneShot(activate);
             Debug.Log("gravity off");
             
             for(int i = 0; i < dynamicObjects.Length; i++) //go thru all dynamic objects and set their gravity to 0
@@ -429,6 +447,7 @@ public class PlayerMovement : MonoBehaviour
         if(reverseGravityMode == true && context.performed){
             reverseGravityMode = false;
             Debug.Log("reverse off");
+            source.PlayOneShot(off);
             //flip dude back
             PlayerEntity.transform.eulerAngles = rightsideUp;
 
@@ -446,6 +465,7 @@ public class PlayerMovement : MonoBehaviour
         else if(reverseGravityMode == false && context.performed && noGravityMode == false)
         {
             reverseGravityMode = true;
+            source.PlayOneShot(activate);
             Debug.Log("reverse on");
 
             //flip the dude
@@ -467,6 +487,7 @@ public class PlayerMovement : MonoBehaviour
         {
             noGravityMode = false;
             reverseGravityMode = true;
+            source.PlayOneShot(activate);
             Debug.Log("reverse on");
 
             //flip the dude
