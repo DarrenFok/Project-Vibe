@@ -1,7 +1,7 @@
 # Project-Vibe
 Repo for Vibe Studio's debut game
 
-Programmers: Chris Sim (intelbentium), Darren Fok (ReN)
+Programmers: Chris Sim (chis456), Darren Fok (ReN)
 Art & Art Direction: Paul Zheng (greey)
 
 Development Documentation
